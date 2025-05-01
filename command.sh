@@ -10,3 +10,9 @@ keytool -exportcert -alias nifi-registry -keystore /opt/nifi-registry/conf/keyst
 
 
 
+  keytool -importcert -alias nifi-registry-cert -file /opt/nifi-registry/conf/nifi-registry.crt \
+  -keystore /path/to/nifi/truststore.jks -storepass NiFiTruststorePassword -noprompt
+
+
+
+
