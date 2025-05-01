@@ -22,5 +22,6 @@ nifi.registry.security.truststore=/opt/nifi-registry/conf/truststore.jks
 nifi.registry.security.truststoreType=JKS
 nifi.registry.security.truststorePasswd=YourTruststorePassword
 
+keytool -list -v -keystore /opt/nifi-registry/conf/keystore.jks -alias nifi-registry -storepass <yourpass> | grep "Owner:"
 
 
