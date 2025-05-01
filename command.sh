@@ -25,3 +25,26 @@ nifi.registry.security.truststorePasswd=YourTruststorePassword
 keytool -list -v -keystore /opt/nifi-registry/conf/keystore.jks -alias nifi-registry -storepass <yourpass> | grep "Owner:"
 
 
+location /nifi-registry/ {
+    proxy_pass https://localhost:9444/nifi-registry/;
+    proxy_ssl_name localhost;
+    proxy_http_version 1.1;
+
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Prefix /nifi-registry;
+
+    # These are critical for reverse proxy logic
+    proxy_set_header X-ProxyScheme "https";
+    proxy_set_header X-ProxyHost $host;
+    proxy_set_header X-ProxyPort "443";
+    proxy_set_header X-ProxyContextPath "/nifi-registry";
+
+    # Prevent 301 redirect weirdness
+    proxy_redirect off;
+}
+
+
+
