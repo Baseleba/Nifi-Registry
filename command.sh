@@ -5,6 +5,8 @@ sudo keytool -genkeypair -alias nifi-registry -keyalg RSA -keysize 4096 -validit
   -storepass YourKeystorePassword -keypass YourKeyPassword
 
 
+keytool -exportcert -alias nifi-registry -keystore /opt/nifi-registry/conf/keystore.jks \
+  -file /opt/nifi-registry/conf/nifi-registry.crt -storepass YourKeystorePassword
 
 
 
