@@ -48,3 +48,26 @@ location /nifi-registry/ {
 
 
 
+
+server {
+    listen 443 ssl http2;
+    server_name registry.aiq.local;
+
+    ssl_certificate     /etc/ssl/certs/nifi-sandbox.aiq.local.crt;
+    ssl_certificate_key /etc/ssl/private/nifi-sandbox.aiq.local.key;
+
+    location / {
+        proxy_pass https://localhost:9444/;
+        proxy_ssl_name localhost;
+        proxy_http_version 1.1;
+
+        proxy_pass_request_headers on;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-Host $host;
+    }
+}
+
+
+
