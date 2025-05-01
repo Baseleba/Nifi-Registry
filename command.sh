@@ -13,6 +13,14 @@ keytool -exportcert -alias nifi-registry -keystore /opt/nifi-registry/conf/keyst
   keytool -importcert -alias nifi-registry-cert -file /opt/nifi-registry/conf/nifi-registry.crt \
   -keystore /path/to/nifi/truststore.jks -storepass NiFiTruststorePassword -noprompt
 
+# Create an empty truststore and import NiFi certificate
+keytool -importcert -alias nifi-node-cert -file /opt/nifi-registry/conf/nifi-node.crt \
+  -keystore /opt/nifi-registry/conf/truststore.jks -storepass YourTruststorePassword -noprompt
+
+
+nifi.registry.security.truststore=/opt/nifi-registry/conf/truststore.jks
+nifi.registry.security.truststoreType=JKS
+nifi.registry.security.truststorePasswd=YourTruststorePassword
 
 
 
